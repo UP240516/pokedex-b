@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { ScrollView } from "react-native";
+import PokemonCard from "./components/PokemonCard";
 
 export default function Index() {
   const [results, setResult] = useState<any[]>([]);
@@ -10,20 +11,23 @@ export default function Index() {
   }, []);
 
   const getPokemons = async () => {
-    const URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+    const URL = "https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0";
     const response = await fetch(URL, {
       method: "GET",
     });
-    console.log(response);
     const data = await response.json();
     setResult(data.results);
-    console.log(data);
+    console.log(response);
   };
   return (
-    <View>
+    <ScrollView>
       {results.map((pokemon) => (
-        <Text key={pokemon.name}>{pokemon.name} </Text>
+        <PokemonCard
+          key={pokemon.name}
+          name={pokemon.name}
+          url={pokemon.url}
+        ></PokemonCard>
       ))}
-    </View>
+    </ScrollView>
   );
 }
