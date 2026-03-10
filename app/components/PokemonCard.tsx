@@ -1,5 +1,6 @@
+import { router } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text } from "react-native";
 
 interface PokemonCardProps {
   name: string;
@@ -10,7 +11,8 @@ export default function PokemonCard(props: PokemonCardProps) {
   const id = props.url.split("/")[6];
   const PokemonImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${id}.png`;
   return (
-    <View
+    <Pressable
+      onPress={() => router.push(`/pokemon/${props.name}`)}
       style={{
         padding: 10,
         borderWidth: 1,
@@ -24,7 +26,7 @@ export default function PokemonCard(props: PokemonCardProps) {
 
       <Text>{props.name} </Text>
       <Text>{props.url} </Text>
-    </View>
+    </Pressable>
   );
 }
 
